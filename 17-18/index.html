@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSON и DOM - Управление библиотекой книг</title>
+    <style>
+        /* Основные стили приложения */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+        
+        /* Стили для таблицы */
+        table {
+            width: 100%;
+            border-collapse: collapse;  /* Убирает двойные границы между ячейками */
+            margin-top: 10px;
+        }
+        
+        /* Стили для ячеек таблицы */
+        th, td {
+            border: 1px solid #ccc;
+            padding: 6px;
+            text-align: left;
+        }
+        
+        /* Стили для заголовков таблицы */
+        th {
+            background: #f3f3f3;
+        }
+        
+        /* Стили для всех кнопок */
+        button {
+            cursor: pointer;  /* Изменяет курсор при наведении */
+        }
+        
+        /* Контейнер для кнопок управления */
+        .controls {
+            margin-bottom: 10px;
+            display: flex;
+            gap: 10px;        /* Отступ между элементами */
+            flex-wrap: wrap;   /* Перенос на новую строку при нехватке места */
+        }
+        
+        /* Стили для формы добавления/редактирования */
+        form {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);  /* Сетка из двух колонок */
+            gap: 10px;
+        }
+        
+        /* Кнопка формы занимает обе колонки */
+        form button {
+            grid-column: span 2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Управление коллекцией книг</h1>
+    
+    <!-- Панель управления с кнопками -->
+    <div class="controls">
+        <button id="reload">🔄 Загрузить новые книги</button>
+        <button id="export">📥 Экспорт в JSON</button>
+        <input type="text" id="search" placeholder="🔍 Поиск по названию или автору...">
+    </div>
+    
+    <!-- Таблица для отображения книг -->
+    <table>
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Автор</th>
+                <th>Жанр</th>
+                <th>Год</th>
+                <th>Рейтинг</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <!-- Тело таблицы - сюда будут динамически добавляться строки с книгами -->
+        <tbody id="table-body"></tbody>
+    </table>
+    
+    <!-- Счетчик количества отображаемых книг -->
+    <p>Всего книг: <strong id="count">0</strong></p>
+    
+    <!-- Форма для добавления и редактирования книг -->
+    <form id="book-form">
+        <!-- Скрытое поле для хранения ID редактируемой книги -->
+        <input type="hidden" name="id">
+        <input type="text" name="title" placeholder="Название" required>
+        <input type="text" name="author" placeholder="Автор" required>
+        <input type="text" name="genre" placeholder="Жанр">
+        <input type="number" name="year" placeholder="Год">
+        <input type="number" step="0.1" name="rating" placeholder="Рейтинг">
+        <button type="submit">💾 Сохранить книгу</button>
+    </form>
+    
+    <!-- Подключаем модуль генерации книг и основной скрипт -->
+    <script type="module" src="scripts/bookGenerator.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
